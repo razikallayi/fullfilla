@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Auth::routes();
+
+Route::get('/', 'DashboardController@index');
+
+Route::group([
+	'prefix' => 'admin',
+	'middleware' => 'auth'], function () {
+
+	Route::get('/', 'DashboardController@index');
+	Route::get('dashboard', 'DashboardController@index');
+	Route::get('my-account', 'DashboardController@myAccount');
+	Route::put('my-account', 'DashboardController@updateAccount');
 });
